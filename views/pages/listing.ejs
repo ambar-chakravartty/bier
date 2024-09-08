@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <title>Plant Directory</title>
+
+    <style>
+         body {
+            background-color: #f8f9fa;
+            color: #212529;
+            }
+       .list{
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        background-color: #f0f0f0;
+
+       }
+
+       .container{
+        background-color: #f0f0f0;
+       }
+
+       .navbar, .footer {
+      background-color: #fff;
+    }
+
+       .desc{
+        margin-top: 1rem;
+       }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="#"><img src="../assets/logo.png" alt=""></a>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="">Home</a>
+            <a class="navbar-item" href="#">About</a>
+            <a class="navbar-item" href="plants">Plant Directory</a>
+            <a class="navbar-item" href="forum">Forum</a>
+          </div>
+        </div>
+      </nav>
+
+    <section class="list has-background-white">
+    <div class="container">
+    <% rows.forEach((row) => {%>
+        <div class="block">
+           <div class="content">
+            <h2 class="has-text-dark"><%= row.name %></h2>
+            <h4 class="has-text-dark">(<%= row.title %>)</h4>
+           </div> 
+            <a href="plant/<%=row.name %>" class="button is-primary">View Page</a>
+           <div class="content">    
+                <p class="desc has-text-dark"><%= row.desc %></p>   
+           </div>
+        </div>
+    
+    <% }) %>
+
+    </div>
+</section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>&copy; 2024 Fusion Minds</p>
+    </div>
+  </footer>
+    
+</body>
+</html>

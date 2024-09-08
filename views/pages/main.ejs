@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIER</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/"
+      }
+    }
+  </script>
+  <style>
+    /* Custom light theme color variables */
+    body {
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+    .navbar, .footer {
+      background-color: #fff;
+    }
+    .hero {
+      background-color: #f0f0f0;
+    }
+    .box {
+      background-color: #fff;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar Section -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#"><img src="../assets/logo.png" alt=""></a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="">Home</a>
+        <a class="navbar-item" href="#">About</a>
+        <a class="navbar-item" href="plants">Plant Directory</a>
+        <a class="navbar-item" href="forum">Forum</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero is-medium">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <figure class="image is-128x128 is-inline-block">
+          <img src="../assets/logo.png" alt="Placeholder Image">
+        </figure>
+        <h1 class="title">B.I.E.R</h1>
+        <p class="subtitle">
+            Explore the World of Medicinal Plants with Virtual Herbal Garden
+            Discover the healing power of nature with our immersive, web-based 3D platform that brings medicinal plants used in AYUSH right to your fingertips.        </p>
+        <div class="buttons is-centered">
+          <a href="plants" class="button is-link">Plant Directory</a>
+          <a href="garden"      class="button is-primary">Immersive Garden</a>
+          <a href="#" class="button is-info">Minigames</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="section">
+    <div class="container has-text-centered">
+      <p class="is-italic">"The greatest wealth is health."</p>
+      <p>- Virgil</p>
+    </div>
+  </section>
+
+  <!-- Rotating Frame Section -->
+  <section class="section">
+    <div class="container">
+      <div class="box has-text-centered">
+        <div id="cnv"></div>
+      </div>
+      <div class="has-text-centered">
+        <a href="#" class="button is-info">Explore</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plant Directory Section -->
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-one-third">
+          <% for(var i=0;i < 3;i++){%>
+            <div class="box">
+                <h2 class="title"><a href="plant/<%= rows[i].name %>"><%= rows[i].name %></a></h2>
+                <p><%= rows[i].title %></p>
+            </div>
+
+          <!-- <div class="box">
+            <h2 class="title">Heading</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div class="box">
+            <h2 class="title">Heading</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div class="box">
+            <h2 class="title">Heading</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div> -->
+
+          <% } %>
+        </div>
+        <div class="column">
+          <h2 class="title">Plant Directory</h2>
+          <p>The Plant Directory is your comprehensive guide to medicinal plants used in AYUSH. Discover a vast collection of plants, complete with their botanical names, medicinal properties, geographic origins, and traditional uses. Easily search and explore plants in stunning 3D detail, and learn how each one contributes to natural healing and wellness.</p>
+          <a href="plants" class="button is-link">View all</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Immersive Garden Section -->
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <h2 class="title">Immersive Garden</h2>
+          <p>Step into our Immersive Garden, where the magic of medicinal plants comes to life in a breathtaking virtual environment. Wander through lush landscapes, interact with a diverse range of plants, and discover their healing properties through detailed 360-degree views. </p>
+        </div>
+        <div class="column">
+          <figure class="image is-4by3">
+            <img src="../assets/immerse.jpeg" alt="Immersive Garden Image">
+          </figure>
+        </div>
+      </div>
+      <div class="has-text-centered">
+        <a href="garden" class="button is-primary">Dive in</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gaming Section -->
+  <section class="section">
+    <div class="container has-text-centered">
+      <h2 class="title">Get Gaming</h2>
+      <div class="columns is-multiline is-mobile">
+        <div class="column is-one-fifth">
+          <div class="box">Game 1</div>
+        </div>
+        <div class="column is-one-fifth">
+          <div class="box">Game 2</div>
+        </div>
+        <div class="column is-one-fifth">
+          <div class="box">Game 3</div>
+        </div>
+        <div class="column is-one-fifth">
+          <div class="box">Game 4</div>
+        </div>
+        <div class="column is-one-fifth">
+          <div class="box">Game 5</div>
+        </div>
+      </div>
+      <button class="button is-info">Explore Minigames</button>
+    </div>
+  </section>
+
+  <!-- AR Camera Section -->
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-half">
+          <figure class="image is-1by1">
+            <img src="../assets/ar.jpeg" alt="AR Camera Image">
+          </figure>
+          <div class="has-text-centered">
+            <button class="button is-primary">Launch AR Cam</button>
+          </div>
+        </div>
+        <div class="column">
+          <h2 class="title">AR Camera</h2>
+          <p>Transform your space with our AR Cam feature, which brings the Virtual Herbal Garden into your home through augmented reality. With just a smartphone or tablet, you can project and interact with digital versions of medicinal plants right in your living space.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>&copy; 2024 Fusion Minds</p>
+    </div>
+  </footer>
+
+<script type="module" src="../plant_poc.js"></script>
+</body>
+</html>

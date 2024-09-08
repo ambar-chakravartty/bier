@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= name %></title>
+    <!-- <link rel="stylesheet" href="../style.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/"
+          }
+        }
+      </script>
+</head>
+<body>
+    <div class="columns is-mobile">
+        <section class="section" > 
+        <div class="column">
+            
+            <% info.forEach((plant) => {%>
+                <div class="container m-auto">
+                <div class="title has-text-primary"><%= plant.name %> ( <%= plant.title %> )</div>
+                <div class="block">
+                 <%= plant.desc %>
+                </div>
+                <ul>
+                    <li><strong>Lifespan : </strong> <%= plant.lifespan %></li>
+                    <li><strong>Height Range : </strong> <%= plant.height %></li>
+                    <li><strong>Uses:</strong> <%= plant.uses %></li>
+                </ul>    
+            </div>    
+        </div>
+    </section>
+        <div class="column">
+            <div id="plantModel"></div>
+        </div>
+    </div>
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+
+// Initialize scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth / 2, window.innerHeight);
+        renderer.setClearColor(0xffffff,0);
+        document.getElementById('plantModel').appendChild(renderer.domElement);
+
+
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        ambientLight.intensity = 45;
+        scene.add(ambientLight);
+
+// Load 3D Model
+        const loader = new GLTFLoader();
+        loader.load(
+            '<%= plant.path %>', // Path to the .glb file
+        function (gltf) {
+            const model = gltf.scene;
+
+            gltf.scene.traverse( function( node ) {
+
+                if ( node.isMesh ) { node.castShadow = true; }
+    
+            } );
+
+        // Scale and position the model
+            model.scale.set(1, 1, 1);
+            model.position.set(0, 0, 0);
+
+        // Center the model
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            model.position.sub(center);
+
+            scene.add(model);
+        },
+        undefined, // Function for the loading progress
+        function (error) {
+            console.error('An error happened:', error);
+        }
+        );
+
+
+//responsive shiii
+        window.addEventListener( 'resize', onWindowResize, false );
+
+        function onWindowResize(){
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth/2, window.innerHeight );
+
+        }
+
+        camera.position.z = 5;
+    
+
+// OrbitControls for better model interaction
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+// controls.dampingFactor = 0.02;
+        controls.update();
+
+// Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update(); // Required if OrbitControls is used
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+     <% }) %>
+</body>
+</html>
